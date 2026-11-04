@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/*
+ * Tuon design tokens (v0.1). The theme is dark only.
+ *
+ * Two layers:
+ *   1. Palette: full 50-950 scales per hue. The original design tokens sit at fixed steps (noted per scale).
+ *      Use these sparingly; prefer the semantic tokens below.
+ *   2. Semantic tokens: named for their role, each in the namespace of the utility it is meant for, so they read
+ *      naturally in class names:
+ *        bg-base, bg-surface, bg-surface-raised           (backgrounds)
+ *        text-primary, text-secondary, text-muted         (text)
+ *        border-default, border-subtle                    (borders)
+ *        text-accent, bg-listening, border-correct, ...   (accents and learning states, any color utility)
+ */
+
+@theme {
+  /* --- Palette ----------------------------------------------------------------------------------------- */
+
+  /* Night: navy sky. 800 = bg-elev, 900 = bg-mid, 950 = bg-deep. */
+  --color-night-50: #f3f5fb;
+  --color-night-100: #d2d6e0;
+  --color-night-200: #b3b9c6;
+  --color-night-300: #959bac;
+  --color-night-400: #777f93;
+  --color-night-500: #5b647b;
+  --color-night-600: #414a63;
+  --color-night-700: #28324c;
+  --color-night-800: #111a36;
+  --color-night-900: #0a1128;
+  --color-night-950: #050817;
+
+  /* Sand: warm cream neutral. 100 = ink, 400 = ink-soft, 600 = ink-mute. */
+  --color-sand-50: #faf7ee;
+  --color-sand-100: #f4ecd8;
+  --color-sand-200: #e0d9c6;
+  --color-sand-300: #ccc6b4;
+  --color-sand-400: #b9b3a3;
+  --color-sand-500: #938e80;
+  --color-sand-600: #6e6a5e;
+  --color-sand-700: #545147;
+  --color-sand-800: #3c3a32;
+  --color-sand-900: #25241e;
+  --color-sand-950: #110f0b;
+
+  /* Gold. 400 = gold, 700 = gold-deep. */
+  --color-gold-50: #fff5e8;
+  --color-gold-100: #f4e2c9;
+  --color-gold-200: #eacfaa;
+  --color-gold-300: #dfbc8a;
+  --color-gold-400: #d4a96a;
+  --color-gold-500: #bb935a;
+  --color-gold-600: #a37e4a;
+  --color-gold-700: #8c6a3a;
+  --color-gold-800: #694f29;
+  --color-gold-900: #48351a;
+  --color-gold-950: #291d0b;
+
+  /* Teal. 400 = teal. */
+  --color-teal-50: #ecfafc;
+  --color-teal-100: #cde8ec;
+  --color-teal-200: #aed7dd;
+  --color-teal-300: #8ec5cd;
+  --color-teal-400: #6db4be;
+  --color-teal-500: #5a9aa3;
+  --color-teal-600: #478189;
+  --color-teal-700: #356970;
+  --color-teal-800: #245258;
+  --color-teal-900: #133c41;
+  --color-teal-950: #03272b;
+
+  /* Sakura. 400 = sakura. */
+  --color-sakura-50: #fff4f5;
+  --color-sakura-100: #f3d5d9;
+  --color-sakura-200: #e6b6be;
+  --color-sakura-300: #d898a4;
+  --color-sakura-400: #c97a8a;
+  --color-sakura-500: #ad6876;
+  --color-sakura-600: #925662;
+  --color-sakura-700: #774550;
+  --color-sakura-800: #5e353d;
+  --color-sakura-900: #46252c;
+  --color-sakura-950: #2f171c;
+
+  /* Outermost gradient stop, darker than night-950. */
+  --color-void: #030412;
+
+  /* --- Typography -------------------------------------------------------------------------------------- */
+
+  /* Font families are loaded with next/font in app/layout.tsx. */
+  --font-display: var(--font-fraunces), Georgia, serif; /* headlines, hero moments, italic accents */
+  --font-sans: var(--font-manrope), "Helvetica Neue", sans-serif; /* interface: buttons, labels, body */
+  --font-jp: var(--font-shippori-mincho), "Yu Mincho", serif; /* all kana and kanji content */
+  --font-mono: var(--font-jetbrains-mono), Menlo, monospace; /* IPA, timers, accuracy values */
+
+  /* --- Motion ------------------------------------------------------------------------------------------ */
+
+  --animate-twinkle: twinkle 4s ease-in-out infinite;
+
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.15;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+}
+
+@theme inline {
+  /* --- Backgrounds (bg-*) ------------------------------------------------------------------------------ */
+
+  --background-color-base: var(--color-night-950); /* deep void, base canvas */
+  --background-color-surface: var(--color-night-900); /* mid-depth surfaces, modals */
+  --background-color-surface-raised: var(--color-night-800); /* elevated panels, history cards */
+
+  /* --- Text (text-*) ----------------------------------------------------------------------------------- */
+
+  --text-color-primary: var(--color-sand-100); /* primary text, warm cream (not pure white) */
+  --text-color-secondary: var(--color-sand-400); /* secondary text, italic prose */
+  --text-color-muted: var(--color-sand-600); /* hints, disabled states */
+
+  /* --- Borders (border-*) ------------------------------------------------------------------------------ */
+
+  --border-color-default: --alpha(var(--color-sand-100) / 10%); /* default border, hairline dividers */
+  --border-color-subtle: --alpha(var(--color-sand-100) / 5%); /* inner partitions, subtle separation */
+
+  /* --- Accents and learning states (any color utility) ------------------------------------------------- */
+
+  /* Color encodes phase, not decoration: gold for listening, sakura for recording, teal for feedback. */
+  --color-accent: var(--color-gold-400); /* primary accent, CTAs */
+  --color-accent-deep: var(--color-gold-700); /* hairline accents */
+
+  --color-listening: var(--color-gold-400);
+  --color-recording: var(--color-sakura-400);
+  --color-feedback: var(--color-teal-400);
+
+  --color-correct: var(--color-teal-400); /* phoneme correct */
+  --color-weak: var(--color-sakura-400); /* phoneme weak */
+  --color-complete: var(--color-gold-700); /* completed states */
+}
+
+/* --- Gradients ------------------------------------------------------------------------------------------- */
+
+/* Landing, listening and feedback states. */
+@utility bg-canvas {
+  background-image: radial-gradient(
+    ellipse at 30% 20%,
+    #0e1738 0%,
+    var(--color-night-950) 55%,
+    #030514 100%
+  );
+}
+
+/* Recording state and stage-complete moments. */
+@utility bg-canvas-deep {
+  background-image: radial-gradient(ellipse at 70% 80%, #14204a 0%, #060a1f 60%, var(--color-void) 100%);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border-color-default);
+  }
+
+  body {
+    background-color: var(--background-color-base);
+    color: var(--text-color-primary);
+    font-family: var(--font-sans);
+  }
+}
